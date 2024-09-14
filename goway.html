@@ -199,20 +199,20 @@
 
 						<div class="map">
 
-<div id="containerr" style="width: 600px; height: 400px;"></div>
+<div id="container" style="width: 600px; height: 400px;"></div>
  <script type="text/javascript">
         // 确保DOM加载完成后再初始化地图
         document.addEventListener('DOMContentLoaded', function() {
           // 初始化地图
           var map = new AMap.Map('container', {
             zoom: 15,
-            center: [113.828296,22.694325] // 北京的坐标
+            center: [113.828296,22.694325] // 坐标
           });
 
           // 创建一个Marker实例
           var marker = new AMap.Marker({
             position: map.getCenter(),
-            title: '北京'
+            title: '深圳市腾胜辉科技有限公司'
           });
 
           // 将Marker添加到地图上
