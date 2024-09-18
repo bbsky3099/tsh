@@ -25,12 +25,65 @@
       type="text/javascript"
       src="https://webapi.amap.com/maps?v=2.0&key=b08827e3ba2e25e8393ef82e9b12f606"
     ></script>
+
+ <script type="text/javascript">
+        // 确保DOM加载完成后再初始化地图
+        document.addEventListener('DOMContentLoaded', function initMap() {
+          // 初始化地图
+          var map = new AMap.Map('container', {
+            zoom: 20,
+            center: [113.828296,22.694325] // 坐标
+          });
+
+          // 创建一个Marker实例
+          var marker = new AMap.Marker({
+            position: map.getCenter(),
+            title: '深圳市腾胜辉科技有限公司（深圳市宝安区福永福安第三工业园4栋1楼）'
+          });
+
+          // 将Marker添加到地图上
+          marker.setMap(map);
+
+
+            // 获取用户的当前位置
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLocation = [position.coords.longitude, position.coords.latitude];
+
+                    // 创建一个Marker实例表示用户当前位置
+                    var userMarker = new AMap.Marker({
+                        position: userLocation,
+                        title: '当前位置'
+                    });
+
+      // 创建导航对象
+                    var driving = new AMap.Driving();
+
+                    // 调用驾车导航
+                    driving.search(userLocation, destination, {
+                        city: '深圳市',
+                        policy: AMap.DrivingPolicy.LEAST_TIME // 选择最短时间路线策略
+                    }, function(status, result) {
+                        if (status === 'complete') {
+                            console.log('导航路线已绘制');
+                        } else {
+                            console.error('无法获取导航路线');
+                        }
+                    });
+                }, function(error) {
+                    console.error('获取地理位置失败:', error.message);
+                });
+            } else {
+                console.error('您的浏览器不支持获取地理位置的功能');
+            }
+        }
+    </script>
 </head>
 	<!--[if IE 6]>
 		<script type="text/javascript" src="skins/js/DD_belatedPNG.js">
 		</script>
 	<![endif]-->
-	<body>
+	<body onload="initMap()">
 		<div class="center">
 			<!--top-->
 			<div class="top">
@@ -200,36 +253,7 @@
 						<div class="map">
 
 <div id="container" style="width: 600px; height: 400px;"></div>
- <script type="text/javascript">
-        // 确保DOM加载完成后再初始化地图
-        document.addEventListener('DOMContentLoaded', function() {
-          // 初始化地图
-          var map = new AMap.Map('container', {
-            zoom: 20,
-            center: [113.828296,22.694325] // 坐标
-          });
 
-          // 创建一个Marker实例
-          var marker = new AMap.Marker({
-            position: map.getCenter(),
-            title: '深圳市腾胜辉科技有限公司（深圳市宝安区福永福安第三工业园4栋1楼）'
-          });
-
-          // 将Marker添加到地图上
-          marker.setMap(map);
-
-        // 为标记添加点击事件
-        AMap.event.addListener(marker, 'click', function(e) {
-            // 创建导航对象
-            var driving = new AMap.Driving();
-            // 调用驾车导航
-            driving.search([113.828296,22.694325], {
-                city: '深圳市',
-                policy: AMap.DrivingPolicy.LEAST_TIME // 选择最短时间路线策略
-            });
-        });
-        });
-    </script>
 							<img src="skins/images/img22.jpg" width="685" height="379" alt="#">
 						</div>
 					</div>
