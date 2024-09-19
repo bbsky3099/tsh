@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Image List</title>
+    <style>
+        .lazy { 
+            opacity: 0; /* 初始状态隐藏图片 */
+        }
+    </style>
+</head>
+	<link href="skins/css/public.css" rel="stylesheet" type="text/css"
+	/>
+	<link href="skins/css/inside.css" rel="stylesheet" type="text/css"
+	/>
+	<link rel="stylesheet" type="text/css" href="skins/fancybox/jquery.fancybox-1.3.4.css"
+	media="screen" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<script type="text/javascript" src="skins/js/jquery-1.7.min.js">
+	</script>
+<body>
+
+<div class="container" id="Div1">
+    <div class="proList" id="Div2">
+        <ul id="imageList">
+            <!-- 图片将在这里动态生成 -->
+        </ul>
+    </div>
+</div>
+
+<script>
+    function fetchImagesAndDisplay() {
+        const folderPath = "UploadFiles/Images/2024/2/";
+        const imageList = [
+            "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png",
+            "21.png", "22.png", "23.png", "24.png", "25.png", "26.png", "27.png",
+            "28.png", "29.png", "30.png", "31.png", "32.png", "33.png", "34.png",
+            "35.png", "36.png", "37.png", "38.png", "39.png", "40.png", "41.png"
+        ];
+
+        const ulElement = document.getElementById("imageList");
+
+        imageList.forEach(fileName => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = folderPath + fileName;
+            a.rel = "example_group";
+            a.title = "精密零件设计制造";
+
+            const img = document.createElement("img");
+            img.src = folderPath + fileName;
+            img.width = "165";
+            img.height = "128";
+            img.alt = "精密零件设计制造";
+            img.loading = "lazy"; // 添加懒加载属性
+
+            const span = document.createElement("span");
+            span.textContent = "精密零件设计制造";
+
+            a.appendChild(img);
+            a.appendChild(span);
+            li.appendChild(a);
+
+            ulElement.appendChild(li);
+        });
+    }
+
+    // 页面加载后执行函数
+    window.addEventListener('DOMContentLoaded', fetchImagesAndDisplay);
+</script>
+
+</body>
+</html>
